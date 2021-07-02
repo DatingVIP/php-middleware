@@ -77,7 +77,7 @@ class StackMiddleware implements MiddlewareStackInterface, MiddlewareInterface
         $this->currentEvent = null;
     }
 
-    public function handle(Request $request, ?MiddlewareStackInterface $stack = null): Request
+    public function handle(RequestInterface $request, ?MiddlewareStackInterface $stack = null): RequestInterface
     {
         return $request;
     }
