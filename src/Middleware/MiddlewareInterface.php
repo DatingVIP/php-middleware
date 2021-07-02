@@ -7,5 +7,5 @@ namespace DatingVIP\Middleware;
  */
 interface MiddlewareInterface
 {
-    public function handle(Request $request, ?MiddlewareStackInterface $stack = null): Request;
+    public function handle(RequestInterface $request, ?MiddlewareStackInterface $stack = null): RequestInterface;
 }

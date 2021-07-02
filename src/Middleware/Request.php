@@ -8,24 +8,24 @@ use DatingVIP\Middleware\Request\Stamp\StampInterface;
 /**
  * @author Pawel Miroslawski <pmiroslawski@gmail.com>
  */
-final class Request
+class Request implements RequestInterface
 {
     private \ArrayObject $stamps;
-    private $message;
+    private $request;
 
     /**
      * @param object           $message
      * @param StampInterface[] $stamps
      */
-    public function __construct($message, array $stamps = [])
+    public function __construct($request, array $stamps = [])
     {
         $this->stamps = new \ArrayObject();
 
-        if (!\is_object($message)) {
+        if (!\is_object($request)) {
             throw new \TypeError(sprintf('Invalid argument provided to "%s()": expected object but got "%s".', __METHOD__, get_debug_type($message)));
         }
 
-        $this->message = $message;
+        $this->request = $request;
 
         foreach ($stamps as $stamp) {
             $index = \get_class($stamp);
@@ -41,9 +41,9 @@ final class Request
      * @param object|Request  $message
      * @param StampInterface[] $stamps
      */
-    public static function wrap($message, array $stamps = []): self
+    public static function wrap($request, array $stamps = []): self
     {
-        $envelope = $message instanceof self ? $message : new self($message);
+        $envelope = $request instanceof self ? $request : new self($request);
 
         return $envelope->with(...$stamps);
     }
@@ -56,7 +56,13 @@ final class Request
         $cloned = clone $this;
 
         foreach ($stamps as $stamp) {
-            $cloned->stamps[\get_class($stamp)][] = $stamp;
+            $index = \get_class($stamp);
+
+            if (!$cloned->stamps->offsetExists($index)) {
+                $cloned->stamps->offsetSet($index, new \ArrayObject());
+            }
+
+            $cloned->stamps->offsetGet($index)->append($stamp);
         }
 
         return $cloned;
@@ -111,9 +117,9 @@ final class Request
     /**
      * @return object The original message contained in the envelope
      */
-    public function getMessage(): object
+    public function getRequest(): object
     {
-        return $this->message;
+        return $this->request;
     }
 
     private function resolveAlias(string $fqcn): string
