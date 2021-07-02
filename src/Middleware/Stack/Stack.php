@@ -1,9 +1,9 @@
 <?php
 
-namespace Bit9\Middleware\Stack;
+namespace DatingVIP\Middleware\Stack;
 
 
-use Bit9\Middleware\MiddlewareInterface;
+use DatingVIP\Middleware\MiddlewareInterface;
 
 /**
  * Simple stack implementation

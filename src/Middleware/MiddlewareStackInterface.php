@@ -1,6 +1,6 @@
 <?php
 
-namespace Bit9\Middleware;
+namespace DatingVIP\Middleware;
 
 /**
  * @author Pawel Miroslawski <pmiroslawski@gmail.com>

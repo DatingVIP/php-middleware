@@ -1,8 +1,8 @@
 <?php
 
-namespace Bit9\Middleware;
+namespace DatingVIP\Middleware;
 
-use Bit9\Middleware\Stack\Stack;
+use DatingVIP\Middleware\Stack\Stack;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 /**

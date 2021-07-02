@@ -1,9 +1,9 @@
 <?php
 
-namespace Bit9\Middleware;
+namespace DatingVIP\Middleware;
 
 
-use Bit9\Middleware\Request\Stamp\StampInterface;
+use DatingVIP\Middleware\Request\Stamp\StampInterface;
 
 /**
  * @author Pawel Miroslawski <pmiroslawski@gmail.com>
