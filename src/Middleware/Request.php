@@ -14,16 +14,12 @@ class Request implements RequestInterface
     private $request;
 
     /**
-     * @param object           $message
+     * @param mixed            $message
      * @param StampInterface[] $stamps
      */
     public function __construct($request, array $stamps = [])
     {
         $this->stamps = new \ArrayObject();
-
-        if (!\is_object($request)) {
-            throw new \TypeError(sprintf('Invalid argument provided to "%s()": expected object but got "%s".', __METHOD__, get_debug_type($message)));
-        }
 
         $this->request = $request;
 
@@ -117,7 +113,7 @@ class Request implements RequestInterface
     /**
      * @return object The original message contained in the envelope
      */
-    public function getRequest(): object
+    public function getRequest()
     {
         return $this->request;
     }
