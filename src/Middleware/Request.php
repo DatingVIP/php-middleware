@@ -124,35 +124,4 @@ class Request implements RequestInterface
 
         return $resolved[$fqcn] ?? ($resolved[$fqcn] = (new \ReflectionClass($fqcn))->getName());
     }
-
-    public function stampExists(string $stampFqcn) : bool
-    {
-        $stamps = $this->all($stampFqcn);
-
-        return $stamps->count() > 0;
-    }
-
-    public function getStamp(string $stampFqcn)
-    {
-        $stamps = $this->all($stampFqcn);
-
-        if ($stamps->count() == 0) {
-            throw new \RuntimeException(sprintf("%s has not been found in the passed request. Current middleware must be executed after a middleware which set %s in the request.", $stampFqcn, $stampFqcn));
-        }
-
-        return $stamps->offsetGet($stamps->count() - 1);
-    }
-
-    public function setStamp(StampInterface $stamp)
-    {
-        return $this->with($stamp);
-    }
-
-    public function setStampIfNotExist(string $stampFqcn)
-    {
-        if ($this->stampExists($stampFqcn)) {
-            return $this;
-        }
-        return $this->with(new $stampFqcn([]));
-    }
 }
